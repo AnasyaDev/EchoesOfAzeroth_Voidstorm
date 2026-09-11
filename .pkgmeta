@@ -1,0 +1,9 @@
+package-as: EchoesOfAzeroth_Voidstorm
+enable-nolib-creation: no
+
+ignore:
+  - README.md
+  - .github
+  - .cursor
+  - .gitignore
+  - docs

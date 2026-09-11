@@ -1,0 +1,632 @@
+local _, ns = ...
+
+-- ============================================================
+-- Localization
+--
+-- English (enUS) is the base; every other client locale overrides
+-- below.  All strings are the AreaTable.AreaName_lang values of
+-- build 12.1.0 (wago.tools), so they match GetSubZoneText() exactly.
+-- Non-ASCII characters are written as UTF-8 byte escapes.
+--
+-- Keys are locale-independent constants used by Zones.lua.
+-- ============================================================
+
+local names = {
+    VOIDSTORM           = "Voidstorm",
+    SLAYERS_RISE        = "Slayer's Rise",
+}
+
+local subzones = {
+    THE_INGRESS         = "The Ingress",
+    LOCUS_POINT         = "Locus Point",
+    THE_HOWLING_RIDGE   = "The Howling Ridge",
+    DUSKS_REPOSE        = "Dusk's Repose",
+    NEXUS_POINT_ANTIUS  = "Nexus-Point Antius",
+    NEXUS_POINT_XENAS   = "Nexus-Point Xenas",
+    NEXUS_POINT_MIDAR   = "Nexus-Point Mid'Ar",
+    SHADOWGUARD_POINT   = "Shadowguard Point",
+    ETHEREUM_REFINERY   = "Ethereum Refinery",
+    ETHEREUM_OVERCROFT  = "Ethereum Overcroft",
+    STORMARION_KEEP     = "Stormarion Keep",
+    STORMARION_CITADEL  = "Stormarion Citadel",
+    STORMARION_WATCH    = "Stormarion Watch",
+    OBSCURION_CITADEL   = "Obscurion Citadel",
+    THE_VOIDSPIRE       = "The Voidspire",
+    THE_APPROACH        = "The Approach",
+    THE_MOLT            = "The Molt",
+    UNDERGROUND_BURROWS = "Underground Burrows",
+    THE_BLADEBURROWS    = "The Bladeburrows",
+    ABUNDANT_VOIDBURROW = "Abundant Voidburrow",
+    OVERRUN_HOLLOW      = "Overrun Hollow",
+    DEN_OF_PREDAXAS     = "Den of Predaxas",
+    LAIR_OF_PREDAXAS    = "Lair of Predaxas",
+    NIGHT_TRENCH        = "Night Trench",
+    THE_GORGING_PIT     = "The Gorging Pit",
+    QUIET_CAVERN        = "Quiet Cavern",
+    CONSUMPTOR_CAVE     = "Consumptor Cave",
+    EXILES_HOVEL        = "Exiles' Hovel",
+    SLAYERS_RISE        = "Slayer's Rise",
+    MASTERS_PERCH       = "Masters' Perch",
+    GRIEF_SPIRE         = "Grief Spire",
+    RETRIBUTION_HOLD    = "Retribution Hold",
+    BASTION_OF_VALOR    = "Bastion of Valor",
+    HATE_SPIRE          = "Hate Spire",
+    METTLES_HOLD        = "Mettle's Hold",
+    BASTION_OF_MIGHT    = "Bastion of Might",
+    VOIDSCAR_ARENA      = "Voidscar Arena",
+    SHENZAR_REFINERY    = "Shenzar Refinery",
+    THE_HUSK            = "The Husk",
+    HANAAR_OUTPOST      = "Hanaar Outpost",
+    SHADOWRIDGE_OUTPOST = "Shadowridge Outpost",
+    SHADOW_RISE         = "Shadow Rise",
+    PATH_OF_PREDATION   = "Path of Predation",
+    THE_BLOODPLAINS     = "The Bloodplains",
+    STAREATER_PAVILION  = "Stareater Pavilion",
+    SHATTERSKY_PAVILION = "Shattersky Pavilion",
+    CLAWS_EDGE          = "Claw's Edge",
+    THE_FANGFALL        = "The Fangfall",
+    SPARRING_GROUNDS    = "Sparring Grounds",
+}
+
+-- ============================================================
+-- Locale overrides
+-- ============================================================
+
+local locale = GetLocale()
+
+if locale == "frFR" then
+    names.VOIDSTORM           = "Temp\195\170te du Vide"  -- Tempête du Vide
+    names.SLAYERS_RISE        = "Colline Meurtri\195\168re"  -- Colline Meurtrière
+
+    subzones.THE_INGRESS         = "Le Seuil"
+    subzones.LOCUS_POINT         = "Halte du Noyau"
+    subzones.THE_HOWLING_RIDGE   = "La cr\195\170te Hurlante"  -- La crête Hurlante
+    subzones.DUSKS_REPOSE        = "Repos du Cr\195\169puscule"  -- Repos du Crépuscule
+    subzones.NEXUS_POINT_ANTIUS  = "Point-nexus Antius"
+    subzones.NEXUS_POINT_XENAS   = "Point-nexus Xenas"
+    subzones.NEXUS_POINT_MIDAR   = "Point-nexus Mid\226\128\153Ar"  -- Point-nexus Mid’Ar
+    subzones.SHADOWGUARD_POINT   = "Halte de l\226\128\153Ombre-Garde"  -- Halte de l’Ombre-Garde
+    subzones.ETHEREUM_REFINERY   = "Raffinerie de l\226\128\153Ethereum"  -- Raffinerie de l’Ethereum
+    subzones.ETHEREUM_OVERCROFT  = "Manse de l\226\128\153Ethereum"  -- Manse de l’Ethereum
+    subzones.STORMARION_KEEP     = "Donjon de Fulgarion"
+    subzones.STORMARION_CITADEL  = "Citadelle de Fulgarion"
+    subzones.STORMARION_WATCH    = "Guet de Fulgarion"
+    subzones.OBSCURION_CITADEL   = "Citadelle d\226\128\153Obscurion"  -- Citadelle d’Obscurion
+    subzones.THE_VOIDSPIRE       = "La fl\195\168che du Vide"  -- La flèche du Vide
+    subzones.THE_APPROACH        = "Les Abords"
+    subzones.THE_MOLT            = "La Mue"
+    subzones.UNDERGROUND_BURROWS = "Terriers Souterrains"
+    subzones.THE_BLADEBURROWS    = "Les terriers Tranchants"
+    subzones.ABUNDANT_VOIDBURROW = "Terrier du Vide de l\226\128\153Abondance"  -- Terrier du Vide de l’Abondance
+    subzones.OVERRUN_HOLLOW      = "Terrier du Vide"
+    subzones.DEN_OF_PREDAXAS     = "Tani\195\168re de Pr\195\169daxas"  -- Tanière de Prédaxas
+    subzones.LAIR_OF_PREDAXAS    = "Repaire de Pr\195\169daxas"  -- Repaire de Prédaxas
+    subzones.NIGHT_TRENCH        = "Tranch\195\169e de la Nuit"  -- Tranchée de la Nuit
+    subzones.THE_GORGING_PIT     = "La fosse de Gloutonnerie"
+    subzones.QUIET_CAVERN        = "Caverne Paisible"
+    subzones.CONSUMPTOR_CAVE     = "Grotte du Gavodon"
+    subzones.EXILES_HOVEL        = "Taudis de l\226\128\153Exil"  -- Taudis de l’Exil
+    subzones.SLAYERS_RISE        = "Colline Meurtri\195\168re"  -- Colline Meurtrière
+    subzones.MASTERS_PERCH       = "Perchoir des Ma\195\174tres"  -- Perchoir des Maîtres
+    subzones.GRIEF_SPIRE         = "Fl\195\168che du Deuil"  -- Flèche du Deuil
+    subzones.RETRIBUTION_HOLD    = "Bastion de la Vindicte"
+    subzones.BASTION_OF_VALOR    = "Bastion de la Vaillance"
+    subzones.HATE_SPIRE          = "Fl\195\168che de la Haine"  -- Flèche de la Haine
+    subzones.METTLES_HOLD        = "Bastion du Courage"
+    subzones.BASTION_OF_MIGHT    = "Bastion de la Puissance"
+    subzones.VOIDSCAR_ARENA      = "Ar\195\168ne de la Cicatrice du Vide"  -- Arène de la Cicatrice du Vide
+    subzones.SHENZAR_REFINERY    = "Raffinerie de Shenzar"
+    subzones.THE_HUSK            = "La Bogue"
+    subzones.HANAAR_OUTPOST      = "Avant-poste Hanaar"
+    subzones.SHADOWRIDGE_OUTPOST = "Avant-poste d\226\128\153Ombrecr\195\170te"  -- Avant-poste d’Ombrecrête
+    subzones.SHADOW_RISE         = "Ombrecime"
+    subzones.PATH_OF_PREDATION   = "Voie de la Pr\195\169dation"  -- Voie de la Prédation
+    subzones.THE_BLOODPLAINS     = "Les plaines Sanglantes"
+    subzones.STAREATER_PAVILION  = "Pavillon de D\195\169vore-\195\137toile"  -- Pavillon de Dévore-Étoile
+    subzones.SHATTERSKY_PAVILION = "Pavillon de Brise-Ciel"
+    subzones.CLAWS_EDGE          = "Bord-de-Griffe"
+    subzones.THE_FANGFALL        = "Crochute"
+    subzones.SPARRING_GROUNDS    = "Terrain d\226\128\153affrontement"  -- Terrain d’affrontement
+
+elseif locale == "deDE" then
+    names.VOIDSTORM           = "Leerensturm"
+    names.SLAYERS_RISE        = "Schl\195\164chteranh\195\182he"  -- Schlächteranhöhe
+
+    subzones.THE_INGRESS         = "Der Ingress"
+    subzones.LOCUS_POINT         = "Locuspunkt"
+    subzones.THE_HOWLING_RIDGE   = "Heulender Grat"
+    subzones.DUSKS_REPOSE        = "Zur Abendd\195\164mmerung"  -- Zur Abenddämmerung
+    subzones.NEXUS_POINT_ANTIUS  = "Nexuspunkt Antius"
+    subzones.NEXUS_POINT_XENAS   = "Nexuspunkt Xenas"
+    subzones.NEXUS_POINT_MIDAR   = "Nexuspunkt Mid'ar"
+    subzones.SHADOWGUARD_POINT   = "Schattenwachtspitze"
+    subzones.ETHEREUM_REFINERY   = "Astraleumraffinerie"
+    subzones.ETHEREUM_OVERCROFT  = "Hochplateau des Astraleums"
+    subzones.STORMARION_KEEP     = "Sturmarionfeste"
+    subzones.STORMARION_CITADEL  = "Sturmarionzitadelle"
+    subzones.STORMARION_WATCH    = "Sturmarionwacht"
+    subzones.OBSCURION_CITADEL   = "Obskurionzitadelle"
+    subzones.THE_VOIDSPIRE       = "Die Leerenspitze"
+    subzones.THE_APPROACH        = "Der Zugang"
+    subzones.THE_MOLT            = "Tal der Transformation"
+    subzones.UNDERGROUND_BURROWS = "Unterirdische H\195\182hlen"  -- Unterirdische Höhlen
+    subzones.THE_BLADEBURROWS    = "Die Klingenh\195\182hlen"  -- Die Klingenhöhlen
+    subzones.ABUNDANT_VOIDBURROW = "Opulenter Leerenbau"
+    subzones.OVERRUN_HOLLOW      = "Das \195\188berwucherte Tal"  -- Das überwucherte Tal
+    subzones.DEN_OF_PREDAXAS     = "Bau von Predaxas"
+    subzones.LAIR_OF_PREDAXAS    = "Unterschlupf von Predaxas"
+    subzones.NIGHT_TRENCH        = "Nachtgraben"
+    subzones.THE_GORGING_PIT     = "Die Schlemmergrube"
+    subzones.QUIET_CAVERN        = "Die Stille H\195\182hle"  -- Die Stille Höhle
+    subzones.CONSUMPTOR_CAVE     = "Die Vertilgerh\195\182hle"  -- Die Vertilgerhöhle
+    subzones.EXILES_HOVEL        = "H\195\188tte der Exilanten"  -- Hütte der Exilanten
+    subzones.SLAYERS_RISE        = "Schl\195\164chteranh\195\182he"  -- Schlächteranhöhe
+    subzones.MASTERS_PERCH       = "Der Hort der Meister"
+    subzones.GRIEF_SPIRE         = "Kummerspitze"
+    subzones.RETRIBUTION_HOLD    = "Festung der Vergeltung"
+    subzones.BASTION_OF_VALOR    = "Bastion der Tapferkeit"
+    subzones.HATE_SPIRE          = "Hassspitze"
+    subzones.METTLES_HOLD        = "Festung des Eifers"
+    subzones.BASTION_OF_MIGHT    = "Bastion der Macht"
+    subzones.VOIDSCAR_ARENA      = "Die Arena der Leerennarbe"
+    subzones.SHENZAR_REFINERY    = "Shenzarraffinerie"
+    subzones.THE_HUSK            = "Die H\195\188lse"  -- Die Hülse
+    subzones.HANAAR_OUTPOST      = "Au\195\159enposten Hanaar"  -- Außenposten Hanaar
+    subzones.SHADOWRIDGE_OUTPOST = "Schattenkammau\195\159enposten"  -- Schattenkammaußenposten
+    subzones.SHADOW_RISE         = "Schattenanh\195\182he"  -- Schattenanhöhe
+    subzones.PATH_OF_PREDATION   = "Pfad der Pr\195\164dation"  -- Pfad der Prädation
+    subzones.THE_BLOODPLAINS     = "Die Blutebenen"
+    subzones.STAREATER_PAVILION  = "Sternenfresserpavillon"
+    subzones.SHATTERSKY_PAVILION = "Himmelsbrecherpavillon"
+    subzones.CLAWS_EDGE          = "Klauenkamm"
+    subzones.THE_FANGFALL        = "Fangzahnfall"
+    subzones.SPARRING_GROUNDS    = "\195\156bungsgel\195\164nde"  -- Übungsgelände
+
+elseif locale == "esES" then
+    names.VOIDSTORM           = "Tormenta del Vac\195\173o"  -- Tormenta del Vacío
+    names.SLAYERS_RISE        = "Alto del Asesino"
+
+    subzones.THE_INGRESS         = "El Acceso"
+    subzones.LOCUS_POINT         = "Punto de Enclave"
+    subzones.THE_HOWLING_RIDGE   = "La Cresta Aullante"
+    subzones.DUSKS_REPOSE        = "Reposo del Anochecer"
+    subzones.NEXUS_POINT_ANTIUS  = "Punto de Nexo: Antius"
+    subzones.NEXUS_POINT_XENAS   = "Punto de Nexo: Xenas"
+    subzones.NEXUS_POINT_MIDAR   = "Punto de Nexo: Mid'Ar"
+    subzones.SHADOWGUARD_POINT   = "Punto de la Guardia de las Sombras"
+    subzones.ETHEREUM_REFINERY   = "Refiner\195\173a de El Etereum"  -- Refinería de El Etereum
+    subzones.ETHEREUM_OVERCROFT  = "Sobreb\195\179veda de El Etereum"  -- Sobrebóveda de El Etereum
+    subzones.STORMARION_KEEP     = "Castillo de Tormentarion"
+    subzones.STORMARION_CITADEL  = "Ciudadela de Tormentarion"
+    subzones.STORMARION_WATCH    = "Atalaya de Tormentarion"
+    subzones.OBSCURION_CITADEL   = "Ciudadela Obscurion"
+    subzones.THE_VOIDSPIRE       = "Aguja del Vac\195\173o"  -- Aguja del Vacío
+    subzones.THE_APPROACH        = "La Vereda"
+    subzones.THE_MOLT            = "La Muda"
+    subzones.UNDERGROUND_BURROWS = "Madrigueras Subterr\195\161neas"  -- Madrigueras Subterráneas
+    subzones.THE_BLADEBURROWS    = "Las Madrigueras Filosas"
+    subzones.ABUNDANT_VOIDBURROW = "T\195\186nel del Vac\195\173o Exuberante"  -- Túnel del Vacío Exuberante
+    subzones.OVERRUN_HOLLOW      = "Cuenca Infestada"
+    subzones.DEN_OF_PREDAXAS     = "Cubil de Predaxas"
+    subzones.LAIR_OF_PREDAXAS    = "Guarida de Predaxas"
+    subzones.NIGHT_TRENCH        = "Zanja Nocturna"
+    subzones.THE_GORGING_PIT     = "El Foso Engullidor"
+    subzones.QUIET_CAVERN        = "Caverna de la Quietud"
+    subzones.CONSUMPTOR_CAVE     = "Cueva del Consumidor"
+    subzones.EXILES_HOVEL        = "Choza de los Exiliados"
+    subzones.SLAYERS_RISE        = "Alto del Asesino"
+    subzones.MASTERS_PERCH       = "Pedestal del Maestro"
+    subzones.GRIEF_SPIRE         = "Aguja del Pesar"
+    subzones.RETRIBUTION_HOLD    = "Basti\195\179n de la Reprensi\195\179n"  -- Bastión de la Reprensión
+    subzones.BASTION_OF_VALOR    = "Basti\195\179n del Valor"  -- Bastión del Valor
+    subzones.HATE_SPIRE          = "Aguja del Odio"
+    subzones.METTLES_HOLD        = "Basti\195\179n del Temple"  -- Bastión del Temple
+    subzones.BASTION_OF_MIGHT    = "Basti\195\179n de Poder\195\173o"  -- Bastión de Poderío
+    subzones.VOIDSCAR_ARENA      = "Arena Lacravacua"
+    subzones.SHENZAR_REFINERY    = "Refiner\195\173a Shenzar"  -- Refinería Shenzar
+    subzones.THE_HUSK            = "La Carcasa"
+    subzones.HANAAR_OUTPOST      = "Avanzada Hanaar"
+    subzones.SHADOWRIDGE_OUTPOST = "Avanzada Crestasombra"
+    subzones.SHADOW_RISE         = "Alto de la Sombra"
+    subzones.PATH_OF_PREDATION   = "Senda de la Depredaci\195\179n"  -- Senda de la Depredación
+    subzones.THE_BLOODPLAINS     = "Las Llanuras Sangrientas"
+    subzones.STAREATER_PAVILION  = "Pabell\195\179n Devoraestrellas"  -- Pabellón Devoraestrellas
+    subzones.SHATTERSKY_PAVILION = "Pabell\195\179n Rompecielos"  -- Pabellón Rompecielos
+    subzones.CLAWS_EDGE          = "Filo de la Garra"
+    subzones.THE_FANGFALL        = "Salto del Colmillo"
+    subzones.SPARRING_GROUNDS    = "Liza de entrenamiento"
+
+elseif locale == "esMX" then
+    names.VOIDSTORM           = "Tormenta del Vac\195\173o"  -- Tormenta del Vacío
+    names.SLAYERS_RISE        = "Alto del Asesino"
+
+    subzones.THE_INGRESS         = "El Acceso"
+    subzones.LOCUS_POINT         = "Punto Intersticial"
+    subzones.THE_HOWLING_RIDGE   = "El Risco Aullador"
+    subzones.DUSKS_REPOSE        = "Reposo del Ocaso"
+    subzones.NEXUS_POINT_ANTIUS  = "Punto del Nexo Antius"
+    subzones.NEXUS_POINT_XENAS   = "Punto del Nexo Xenas"
+    subzones.NEXUS_POINT_MIDAR   = "Punto del Nexo Mid'Ar"
+    subzones.SHADOWGUARD_POINT   = "Punto de la Guardia de las Sombras"
+    subzones.ETHEREUM_REFINERY   = "Refiner\195\173a de El Etereum"  -- Refinería de El Etereum
+    subzones.ETHEREUM_OVERCROFT  = "Sobrecoto de El Etereum"
+    subzones.STORMARION_KEEP     = "Fuerte de Tormentarion"
+    subzones.STORMARION_CITADEL  = "Ciudadela de Tormentarion"
+    subzones.STORMARION_WATCH    = "Avanzada de Tormentarion"
+    subzones.OBSCURION_CITADEL   = "Ciudadela de Obscurion"
+    subzones.THE_VOIDSPIRE       = "La Aguja del Vac\195\173o"  -- La Aguja del Vacío
+    subzones.THE_APPROACH        = "El Acercamiento"
+    subzones.THE_MOLT            = "La Piel"
+    subzones.UNDERGROUND_BURROWS = "Madrigueras Subterr\195\161neas"  -- Madrigueras Subterráneas
+    subzones.THE_BLADEBURROWS    = "Las Madrigueras Filosas"
+    subzones.ABUNDANT_VOIDBURROW = "Madriguera del Vac\195\173o Abundante"  -- Madriguera del Vacío Abundante
+    subzones.OVERRUN_HOLLOW      = "Valle Infestado"
+    subzones.DEN_OF_PREDAXAS     = "Cubil de Predaxas"
+    subzones.LAIR_OF_PREDAXAS    = "Guarida de Predaxas"
+    subzones.NIGHT_TRENCH        = "Fosa Nocturna"
+    subzones.THE_GORGING_PIT     = "El Foso Voraz"
+    subzones.QUIET_CAVERN        = "Caverna Tranquila"
+    subzones.CONSUMPTOR_CAVE     = "Cueva del Consumidor"
+    subzones.EXILES_HOVEL        = "Refugio de Exiliados"
+    subzones.SLAYERS_RISE        = "Alto del Asesino"
+    subzones.MASTERS_PERCH       = "Nido del Amo"
+    subzones.GRIEF_SPIRE         = "Aguja del Pesar"
+    subzones.RETRIBUTION_HOLD    = "Fuerte de Reprensi\195\179n"  -- Fuerte de Reprensión
+    subzones.BASTION_OF_VALOR    = "Basti\195\179n de Valor"  -- Bastión de Valor
+    subzones.HATE_SPIRE          = "Aguja del Odio"
+    subzones.METTLES_HOLD        = "Fuerte del Temple"
+    subzones.BASTION_OF_MIGHT    = "Basti\195\179n de Poder"  -- Bastión de Poder
+    subzones.VOIDSCAR_ARENA      = "Arena Rajavac\195\173o"  -- Arena Rajavacío
+    subzones.SHENZAR_REFINERY    = "Refiner\195\173a Shenzar"  -- Refinería Shenzar
+    subzones.THE_HUSK            = "La C\195\161scara"  -- La Cáscara
+    subzones.HANAAR_OUTPOST      = "Puesto de Avanzada Hanaar"
+    subzones.SHADOWRIDGE_OUTPOST = "Puesto de Avanzada Umbracresta"
+    subzones.SHADOW_RISE         = "Alto de las Sombras"
+    subzones.PATH_OF_PREDATION   = "Camino de Depredaci\195\179n"  -- Camino de Depredación
+    subzones.THE_BLOODPLAINS     = "La Meseta Sangrienta"
+    subzones.STAREATER_PAVILION  = "Pabell\195\179n Astr\195\179fago"  -- Pabellón Astrófago
+    subzones.SHATTERSKY_PAVILION = "Pabell\195\179n Rajacielos"  -- Pabellón Rajacielos
+    subzones.CLAWS_EDGE          = "Filo de la Garra"
+    subzones.THE_FANGFALL        = "Ca\195\173da del Colmillo"  -- Caída del Colmillo
+    subzones.SPARRING_GROUNDS    = "Coto de Entrenamiento"
+
+elseif locale == "ptBR" then
+    names.VOIDSTORM           = "Tempestade do Caos"
+    names.SLAYERS_RISE        = "Alto do Matador"
+
+    subzones.THE_INGRESS         = "A Passagem"
+    subzones.LOCUS_POINT         = "Ponto L\195\179cus"  -- Ponto Lócus
+    subzones.THE_HOWLING_RIDGE   = "Serra Uivante"
+    subzones.DUSKS_REPOSE        = "Repouso do Crep\195\186sculo"  -- Repouso do Crepúsculo
+    subzones.NEXUS_POINT_ANTIUS  = "Ponto de Nexus Antius"
+    subzones.NEXUS_POINT_XENAS   = "Ponto de Nexus Xenas"
+    subzones.NEXUS_POINT_MIDAR   = "Ponto de Nexus Mid'ar"
+    subzones.SHADOWGUARD_POINT   = "Ponto da Guarda Sombria"
+    subzones.ETHEREUM_REFINERY   = "Refinaria de Et\195\169reum"  -- Refinaria de Etéreum
+    subzones.ETHEREUM_OVERCROFT  = "Sobrec\195\162mara de Et\195\169reum"  -- Sobrecâmara de Etéreum
+    subzones.STORMARION_KEEP     = "Bastilha de Tempestri\195\163o"  -- Bastilha de Tempestrião
+    subzones.STORMARION_CITADEL  = "Cidadela de Tempestri\195\163o"  -- Cidadela de Tempestrião
+    subzones.STORMARION_WATCH    = "Vig\195\173lia de Tempestri\195\163o"  -- Vigília de Tempestrião
+    subzones.OBSCURION_CITADEL   = "Cidadela de Obscuri\195\163o"  -- Cidadela de Obscurião
+    subzones.THE_VOIDSPIRE       = "A Torre do Caos"
+    subzones.THE_APPROACH        = "A Aproxima\195\167\195\163o"  -- A Aproximação
+    subzones.THE_MOLT            = "A Ex\195\186via"  -- A Exúvia
+    subzones.UNDERGROUND_BURROWS = "Tocas Subterr\195\162neas"  -- Tocas Subterrâneas
+    subzones.THE_BLADEBURROWS    = "Covas Afiadas"
+    subzones.ABUNDANT_VOIDBURROW = "Toca do Caos Abundante"
+    subzones.OVERRUN_HOLLOW      = "Vazio Sobrepujado"
+    subzones.DEN_OF_PREDAXAS     = "Covil de Predaxas"
+    subzones.LAIR_OF_PREDAXAS    = "Reduto de Predaxas"
+    subzones.NIGHT_TRENCH        = "Trincheira da Noite"
+    subzones.THE_GORGING_PIT     = "O Po\195\167o Devorador"  -- O Poço Devorador
+    subzones.QUIET_CAVERN        = "Caverna Silenciosa"
+    subzones.CONSUMPTOR_CAVE     = "Caverna do Empanturrador"
+    subzones.EXILES_HOVEL        = "Ref\195\186gio dos Exilados"  -- Refúgio dos Exilados
+    subzones.SLAYERS_RISE        = "Alto do Matador"
+    subzones.MASTERS_PERCH       = "Ninho do Mestre"
+    subzones.GRIEF_SPIRE         = "Pin\195\161culo da M\195\161goa"  -- Pináculo da Mágoa
+    subzones.RETRIBUTION_HOLD    = "Forte da Retribui\195\167\195\163o"  -- Forte da Retribuição
+    subzones.BASTION_OF_VALOR    = "Basti\195\163o da Bravura"  -- Bastião da Bravura
+    subzones.HATE_SPIRE          = "Pin\195\161culo do \195\147dio"  -- Pináculo do Ódio
+    subzones.METTLES_HOLD        = "Forte da Bravura"
+    subzones.BASTION_OF_MIGHT    = "Basti\195\163o da For\195\167a"  -- Bastião da Força
+    subzones.VOIDSCAR_ARENA      = "Arena da Chaga do Caos"
+    subzones.SHENZAR_REFINERY    = "Refinaria de Shenzar"
+    subzones.THE_HUSK            = "A Casca"
+    subzones.HANAAR_OUTPOST      = "Posto Avan\195\167ado Hanaar"  -- Posto Avançado Hanaar
+    subzones.SHADOWRIDGE_OUTPOST = "Posto Avan\195\167ado da Serra Sombria"  -- Posto Avançado da Serra Sombria
+    subzones.SHADOW_RISE         = "Alto das Sombras"
+    subzones.PATH_OF_PREDATION   = "Caminho da Preda\195\167\195\163o"  -- Caminho da Predação
+    subzones.THE_BLOODPLAINS     = "Plan\195\173cie Sangrenta"  -- Planície Sangrenta
+    subzones.STAREATER_PAVILION  = "Pavilh\195\163o Fendestrela"  -- Pavilhão Fendestrela
+    subzones.SHATTERSKY_PAVILION = "Pavilh\195\163o Rompe-c\195\169u"  -- Pavilhão Rompe-céu
+    subzones.CLAWS_EDGE          = "Garra Afiada"
+    subzones.THE_FANGFALL        = "Quedapresa"
+    subzones.SPARRING_GROUNDS    = "Campo de Duelos"
+
+elseif locale == "ruRU" then
+    names.VOIDSTORM           = "\208\145\209\131\209\128\209\143 \208\145\208\181\208\183\208\180\208\189\209\139"  -- Буря Бездны
+    names.SLAYERS_RISE        = "\208\151\209\131\208\177\208\181\209\134 \209\131\208\177\208\184\208\185\209\134\209\139"  -- Зубец убийцы
+
+    subzones.THE_INGRESS         = "\208\159\209\128\208\190\209\133\208\190\208\180"  -- Проход
+    subzones.LOCUS_POINT         = "\208\163\208\183\208\181\208\187 \209\129\209\128\208\181\208\180\208\190\209\130\208\190\209\135\208\184\209\143"  -- Узел средоточия
+    subzones.THE_HOWLING_RIDGE   = "\208\146\208\190\209\142\209\137\208\176\209\143 \208\179\209\128\209\143\208\180\208\176"  -- Воющая гряда
+    subzones.DUSKS_REPOSE        = "\208\159\208\190\208\186\208\190\208\185 \208\151\208\176\208\186\208\176\209\130\208\176"  -- Покой Заката
+    subzones.NEXUS_POINT_ANTIUS  = "\208\163\208\183\208\181\208\187 \208\157\208\181\208\186\209\129\209\131\209\129\208\176 \208\144\208\189\209\130\208\184\208\185"  -- Узел Нексуса Антий
+    subzones.NEXUS_POINT_XENAS   = "\208\163\208\183\208\181\208\187 \208\157\208\181\208\186\209\129\209\131\209\129\208\176 \208\151\208\181\208\189\208\176\209\129"  -- Узел Нексуса Зенас
+    subzones.NEXUS_POINT_MIDAR   = "\208\163\208\183\208\181\208\187 \208\157\208\181\208\186\209\129\209\131\209\129\208\176 \208\156\208\184\208\180'\208\176\209\128"  -- Узел Нексуса Мид'ар
+    subzones.SHADOWGUARD_POINT   = "\208\164\208\190\209\128\208\191\208\190\209\129\209\130 \208\162\208\181\208\188\208\189\208\190\208\185 \208\161\209\130\209\128\208\176\208\182\208\184"  -- Форпост Темной Стражи
+    subzones.ETHEREUM_REFINERY   = "\208\151\208\176\208\178\208\190\208\180 \208\177\209\128\208\176\209\130\209\129\209\130\208\178\208\176 \208\173\209\132\208\184\209\128\208\184\209\131\208\188"  -- Завод братства Эфириум
+    subzones.ETHEREUM_OVERCROFT  = "\208\173\209\132\208\184\209\128\208\184\208\176\208\187\209\140\208\189\209\139\208\185 \208\159\208\190\208\180\209\129\208\178\208\190\208\180"  -- Эфириальный Подсвод
+    subzones.STORMARION_KEEP     = "\208\154\209\128\208\181\208\191\208\190\209\129\209\130\209\140 \208\168\209\130\208\190\209\128\208\188\208\176\209\128\208\184\208\190\208\189"  -- Крепость Штормарион
+    subzones.STORMARION_CITADEL  = "\208\166\208\184\209\130\208\176\208\180\208\181\208\187\209\140 \208\168\209\130\208\190\209\128\208\188\208\176\209\128\208\184\208\190\208\189"  -- Цитадель Штормарион
+    subzones.STORMARION_WATCH    = "\208\148\208\190\208\183\208\190\209\128 \208\168\209\130\208\190\209\128\208\188\208\176\209\128\208\184\208\190\208\189"  -- Дозор Штормарион
+    subzones.OBSCURION_CITADEL   = "\208\166\208\184\209\130\208\176\208\180\208\181\208\187\209\140 \208\158\208\177\209\129\208\186\209\131\209\128\208\184\208\190\208\189"  -- Цитадель Обскурион
+    subzones.THE_VOIDSPIRE       = "\208\168\208\191\208\184\208\187\209\140 \208\145\208\181\208\183\208\180\208\189\209\139"  -- Шпиль Бездны
+    subzones.THE_APPROACH        = "\208\159\208\190\208\180\209\129\209\130\209\131\208\191"  -- Подступ
+    subzones.THE_MOLT            = "\208\160\208\176\209\129\208\191\208\176\208\180\208\190\208\186"  -- Распадок
+    subzones.UNDERGROUND_BURROWS = "\208\159\208\190\208\180\208\183\208\181\208\188\208\189\209\139\208\181 \208\187\208\176\208\183\209\139"  -- Подземные лазы
+    subzones.THE_BLADEBURROWS    = "\208\154\208\184\208\189\208\182\208\176\208\187\209\140\208\189\209\139\208\181 \208\186\208\176\209\130\208\176\208\186\208\190\208\188\208\177\209\139"  -- Кинжальные катакомбы
+    subzones.ABUNDANT_VOIDBURROW = "\208\152\208\183\208\190\208\177\208\184\208\187\209\140\208\189\208\176\209\143 \208\189\208\190\209\128\208\176 \208\145\208\181\208\183\208\180\208\189\209\139"  -- Изобильная нора Бездны
+    subzones.OVERRUN_HOLLOW      = "\208\154\208\184\209\136\208\176\209\137\208\176\209\143 \208\187\208\190\209\137\208\184\208\189\208\176"  -- Кишащая лощина
+    subzones.DEN_OF_PREDAXAS     = "\208\155\208\190\208\179\208\190\208\178\208\190 \208\159\209\128\208\181\208\180\208\176\208\186\209\129\208\176\209\129\208\176"  -- Логово Предаксаса
+    subzones.LAIR_OF_PREDAXAS    = "\208\145\208\181\209\128\208\187\208\190\208\179\208\176 \208\159\209\128\208\181\208\180\208\176\208\186\209\129\208\176\209\129\208\176"  -- Берлога Предаксаса
+    subzones.NIGHT_TRENCH        = "\208\146\208\191\208\176\208\180\208\184\208\189\208\176 \208\189\208\190\209\135\208\184"  -- Впадина ночи
+    subzones.THE_GORGING_PIT     = "\208\151\208\184\209\143\209\142\209\137\208\181\208\181 \209\135\209\128\208\181\208\178\208\190"  -- Зияющее чрево
+    subzones.QUIET_CAVERN        = "\208\162\208\184\209\133\208\176\209\143 \208\191\208\181\209\137\208\181\209\128\208\176"  -- Тихая пещера
+    subzones.CONSUMPTOR_CAVE     = "\208\159\208\181\209\137\208\181\209\128\208\176 \208\189\208\181\208\189\208\176\209\129\209\139\209\130\208\189\208\184\208\186\208\176"  -- Пещера ненасытника
+    subzones.EXILES_HOVEL        = "\208\159\209\128\208\184\209\129\209\130\208\176\208\189\208\184\209\137\208\181 \208\184\208\183\208\179\208\189\208\176\208\189\208\189\208\184\208\186\208\190\208\178"  -- Пристанище изгнанников
+    subzones.SLAYERS_RISE        = "\208\151\209\131\208\177\208\181\209\134 \209\131\208\177\208\184\208\185\209\134\209\139"  -- Зубец убийцы
+    subzones.MASTERS_PERCH       = "\208\146\209\139\209\129\208\190\209\130\208\176 \208\189\208\181\208\191\208\190\208\177\208\181\208\180\208\184\208\188\209\139\209\133"  -- Высота непобедимых
+    subzones.GRIEF_SPIRE         = "\208\168\208\191\208\184\208\187\209\140 \208\147\208\190\209\128\209\143"  -- Шпиль Горя
+    subzones.RETRIBUTION_HOLD    = "\208\164\208\190\209\128\209\130 \208\178\208\190\208\183\208\180\208\176\209\143\208\189\208\184\209\143"  -- Форт воздаяния
+    subzones.BASTION_OF_VALOR    = "\208\145\208\176\209\129\209\130\208\184\208\190\208\189 \208\180\208\190\208\177\208\187\208\181\209\129\209\130\208\184"  -- Бастион доблести
+    subzones.HATE_SPIRE          = "\208\168\208\191\208\184\208\187\209\140 \208\157\208\181\208\189\208\176\208\178\208\184\209\129\209\130\208\184"  -- Шпиль Ненависти
+    subzones.METTLES_HOLD        = "\208\164\208\190\209\128\209\130 \208\177\208\181\209\129\209\129\209\130\209\128\208\176\209\136\208\184\209\143"  -- Форт бесстрашия
+    subzones.BASTION_OF_MIGHT    = "\208\145\208\176\209\129\209\130\208\184\208\190\208\189 \208\188\208\190\209\137\208\184"  -- Бастион мощи
+    subzones.VOIDSCAR_ARENA      = "\208\144\209\128\208\181\208\189\208\176 \208\168\209\128\208\176\208\188\208\176 \208\145\208\181\208\183\208\180\208\189\209\139"  -- Арена Шрама Бездны
+    subzones.SHENZAR_REFINERY    = "\208\151\208\176\208\178\208\190\208\180 \208\168\208\181\208\189\208\183\208\176\209\128"  -- Завод Шензар
+    subzones.THE_HUSK            = "\208\158\209\129\209\130\208\190\208\178"  -- Остов
+    subzones.HANAAR_OUTPOST      = "\208\165\208\176\208\189\208\176\208\176\209\128\209\129\208\186\208\176\209\143 \208\183\208\176\209\129\209\130\208\176\208\178\208\176"  -- Ханаарская застава
+    subzones.SHADOWRIDGE_OUTPOST = "\208\162\208\181\208\189\208\181\209\129\208\186\208\176\208\187\209\140\208\189\208\176\209\143 \208\183\208\176\209\129\209\130\208\176\208\178\208\176"  -- Тенескальная застава
+    subzones.SHADOW_RISE         = "\208\146\208\181\209\128\209\136\208\184\208\189\208\176 \209\130\208\181\208\189\208\181\208\185"  -- Вершина теней
+    subzones.PATH_OF_PREDATION   = "\208\159\209\131\209\130\209\140 \209\133\208\184\209\137\208\189\208\184\208\186\208\176"  -- Путь хищника
+    subzones.THE_BLOODPLAINS     = "\208\154\209\128\208\190\208\178\208\176\208\178\209\139\208\181 \209\128\208\176\208\178\208\189\208\184\208\189\209\139"  -- Кровавые равнины
+    subzones.STAREATER_PAVILION  = "\208\159\208\176\208\178\208\184\208\187\209\140\208\190\208\189 \208\159\208\190\208\181\208\180\208\176\209\130\208\181\208\187\209\143 \208\151\208\178\208\181\208\183\208\180"  -- Павильон Поедателя Звезд
+    subzones.SHATTERSKY_PAVILION = "\208\159\208\176\208\178\208\184\208\187\209\140\208\190\208\189 \208\160\208\176\209\129\208\186\208\190\208\187\208\190\209\130\208\190\208\179\208\190 \208\157\208\181\208\177\208\176"  -- Павильон Расколотого Неба
+    subzones.CLAWS_EDGE          = "\208\163\209\128\208\190\209\135\208\184\209\137\208\181 \208\154\208\190\208\179\209\130\209\143"  -- Урочище Когтя
+    subzones.THE_FANGFALL        = "\208\154\209\128\209\143\208\182 \208\154\208\187\209\139\208\186\208\176"  -- Кряж Клыка
+    subzones.SPARRING_GROUNDS    = "\208\163\209\135\208\181\208\177\208\189\208\176\209\143 \208\191\208\187\208\190\209\137\208\176\208\180\208\186\208\176"  -- Учебная площадка
+
+elseif locale == "itIT" then
+    names.VOIDSTORM           = "Tempesta del Vuoto"
+    names.SLAYERS_RISE        = "Altura del Carnefice"
+
+    subzones.THE_INGRESS         = "Ingresso"
+    subzones.LOCUS_POINT         = "Presidio del Locus"
+    subzones.THE_HOWLING_RIDGE   = "Cresta Ululante"
+    subzones.DUSKS_REPOSE        = "Riposo del Vespro"
+    subzones.NEXUS_POINT_ANTIUS  = "Punta del Nexus Antius"
+    subzones.NEXUS_POINT_XENAS   = "Punta del Nexus Xenas"
+    subzones.NEXUS_POINT_MIDAR   = "Punta del Nexus Mid'ar"
+    subzones.SHADOWGUARD_POINT   = "Presidio della Guardia dell'Ombra"
+    subzones.ETHEREUM_REFINERY   = "Raffineria degli Etereum"
+    subzones.ETHEREUM_OVERCROFT  = "Sovracripta degli Etereum"
+    subzones.STORMARION_KEEP     = "Fortezza di Buferion"
+    subzones.STORMARION_CITADEL  = "Cittadella Buferion"
+    subzones.STORMARION_WATCH    = "Presidio di Buferion"
+    subzones.OBSCURION_CITADEL   = "Cittadella Obscurion"
+    subzones.THE_VOIDSPIRE       = "Pinnacolo del Vuoto"
+    subzones.THE_APPROACH        = "Soglia"
+    subzones.THE_MOLT            = "Piana della Muta"
+    subzones.UNDERGROUND_BURROWS = "Cunicoli Sotterranei"
+    subzones.THE_BLADEBURROWS    = "Cunicoli Aguzzi"
+    subzones.ABUNDANT_VOIDBURROW = "Concavuota dell'Abbondanza"
+    subzones.OVERRUN_HOLLOW      = "Rifugio Invaso"
+    subzones.DEN_OF_PREDAXAS     = "Tana di Predaxas"
+    subzones.LAIR_OF_PREDAXAS    = "Antro di Predaxas"
+    subzones.NIGHT_TRENCH        = "Fossa Notturna"
+    subzones.THE_GORGING_PIT     = "Fossa Insaziabile"
+    subzones.QUIET_CAVERN        = "Grotta Silenziosa"
+    subzones.CONSUMPTOR_CAVE     = "Grotta dei Consumanti"
+    subzones.EXILES_HOVEL        = "Spelonca degli Esiliati"
+    subzones.SLAYERS_RISE        = "Altura del Carnefice"
+    subzones.MASTERS_PERCH       = "Trespolo dei Maestri"
+    subzones.GRIEF_SPIRE         = "Guglia della Pena"
+    subzones.RETRIBUTION_HOLD    = "Forte Castigo"
+    subzones.BASTION_OF_VALOR    = "Bastione del Valore"
+    subzones.HATE_SPIRE          = "Guglia dell'Odio"
+    subzones.METTLES_HOLD        = "Forte Ardore"
+    subzones.BASTION_OF_MIGHT    = "Bastione del Vigore"
+    subzones.VOIDSCAR_ARENA      = "Arena Sfregiavuoto"
+    subzones.SHENZAR_REFINERY    = "Raffineria di Shenzar"
+    subzones.THE_HUSK            = "Guscio Vuoto"
+    subzones.HANAAR_OUTPOST      = "Avamposto di Hanaar"
+    subzones.SHADOWRIDGE_OUTPOST = "Avamposto della Cresta d'Ombra"
+    subzones.SHADOW_RISE         = "Altura dell'Ombra"
+    subzones.PATH_OF_PREDATION   = "Sentiero della Predazione"
+    subzones.THE_BLOODPLAINS     = "Pianure del Sangue"
+    subzones.STAREATER_PAVILION  = "Padiglione Mangiastelle"
+    subzones.SHATTERSKY_PAVILION = "Padiglione Spezzacielo"
+    subzones.CLAWS_EDGE          = "Ciglio dell'Artiglio"
+    subzones.THE_FANGFALL        = "Calazanna"
+    subzones.SPARRING_GROUNDS    = "Campi d'Addestramento"
+
+elseif locale == "koKR" then
+    names.VOIDSTORM           = "\234\179\181\237\151\136\237\143\173\237\146\141"  -- 공허폭풍
+    names.SLAYERS_RISE        = "\237\149\153\236\130\180\236\158\144\236\157\152 \236\152\164\235\166\132\234\184\184"  -- 학살자의 오름길
+
+    subzones.THE_INGRESS         = "\236\185\168\237\136\172\236\167\128"  -- 침투지
+    subzones.LOCUS_POINT         = "\234\179\181\234\176\132 \236\167\128\236\160\144"  -- 공간 지점
+    subzones.THE_HOWLING_RIDGE   = "\236\154\184\235\182\128\236\167\150\235\138\148 \235\138\165\236\132\160"  -- 울부짖는 능선
+    subzones.DUSKS_REPOSE        = "\236\150\180\236\138\164\235\166\132\236\157\152 \236\149\136\236\139\157\236\178\152"  -- 어스름의 안식처
+    subzones.NEXUS_POINT_ANTIUS  = "\234\179\181\234\178\176\237\131\145 \236\149\136\237\139\176\236\154\176\236\138\164"  -- 공결탑 안티우스
+    subzones.NEXUS_POINT_XENAS   = "\234\179\181\234\178\176\237\131\145 \236\160\156\235\130\152\236\138\164"  -- 공결탑 제나스
+    subzones.NEXUS_POINT_MIDAR   = "\234\179\181\234\178\176\237\131\145 \235\175\184\235\147\156\236\149\132\235\165\180"  -- 공결탑 미드아르
+    subzones.SHADOWGUARD_POINT   = "\236\150\180\235\145\160\236\136\152\237\152\184\235\179\145 \236\167\128\236\160\144"  -- 어둠수호병 지점
+    subzones.ETHEREUM_REFINERY   = "\236\151\144\237\133\140\235\166\172\236\155\128 \236\160\149\236\160\156\236\134\140"  -- 에테리움 정제소
+    subzones.ETHEREUM_OVERCROFT  = "\236\151\144\237\133\140\235\166\172\236\155\128 \235\134\146\236\157\128\235\156\176"  -- 에테리움 높은뜰
+    subzones.STORMARION_KEEP     = "\236\138\164\237\134\160\235\167\136\235\166\172\236\152\168 \236\154\148\236\131\136"  -- 스토마리온 요새
+    subzones.STORMARION_CITADEL  = "\236\138\164\237\134\160\235\167\136\235\166\172\236\152\168 \236\132\177\236\177\132"  -- 스토마리온 성채
+    subzones.STORMARION_WATCH    = "\236\138\164\237\134\160\235\167\136\235\166\172\236\152\168 \234\176\144\236\139\156\237\132\176"  -- 스토마리온 감시터
+    subzones.OBSCURION_CITADEL   = "\236\149\148\236\151\176\236\167\128 \236\132\177\236\177\132"  -- 암연지 성채
+    subzones.THE_VOIDSPIRE       = "\234\179\181\237\151\136\236\178\168\237\131\145"  -- 공허첨탑
+    subzones.THE_APPROACH        = "\236\160\145\234\183\188\235\161\156"  -- 접근로
+    subzones.THE_MOLT            = "\237\151\136\235\172\188"  -- 허물
+    subzones.UNDERGROUND_BURROWS = "\236\167\128\237\149\152 \235\149\133\234\181\180"  -- 지하 땅굴
+    subzones.THE_BLADEBURROWS    = "\236\185\188\235\130\160\234\181\180"  -- 칼날굴
+    subzones.ABUNDANT_VOIDBURROW = "\235\132\152\236\185\152\235\138\148 \234\179\181\237\151\136\234\181\180"  -- 넘치는 공허굴
+    subzones.OVERRUN_HOLLOW      = "\235\172\180\236\132\177\237\149\156 \234\179\181\235\143\153"  -- 무성한 공동
+    subzones.DEN_OF_PREDAXAS     = "\237\148\132\235\160\136\235\139\165\236\130\172\236\138\164\236\157\152 \236\134\140\234\181\180"  -- 프레닥사스의 소굴
+    subzones.LAIR_OF_PREDAXAS    = "\237\148\132\235\160\136\235\139\165\236\130\172\236\138\164\236\157\152 \235\145\165\236\167\128"  -- 프레닥사스의 둥지
+    subzones.NIGHT_TRENCH        = "\235\176\164\236\157\152 \235\143\132\235\158\145"  -- 밤의 도랑
+    subzones.THE_GORGING_PIT     = "\237\143\173\236\139\157 \234\181\172\235\141\169\236\157\180"  -- 폭식 구덩이
+    subzones.QUIET_CAVERN        = "\234\179\160\236\154\148\237\149\156 \235\143\153\234\181\180"  -- 고요한 동굴
+    subzones.CONSUMPTOR_CAVE     = "\237\131\144\236\139\157\236\182\169 \235\143\153\234\181\180"  -- 탐식충 동굴
+    subzones.EXILES_HOVEL        = "\236\182\148\235\176\169\236\158\144\236\157\152 \234\177\176\236\178\152"  -- 추방자의 거처
+    subzones.SLAYERS_RISE        = "\237\149\153\236\130\180\236\158\144\236\157\152 \236\152\164\235\166\132\234\184\184"  -- 학살자의 오름길
+    subzones.MASTERS_PERCH       = "\236\167\128\235\176\176\236\158\144\236\157\152 \235\167\157\235\163\168"  -- 지배자의 망루
+    subzones.GRIEF_SPIRE         = "\235\185\132\237\131\132\236\157\152 \236\178\168\237\131\145"  -- 비탄의 첨탑
+    subzones.RETRIBUTION_HOLD    = "\236\157\145\235\179\180\236\157\152 \236\154\148\236\131\136"  -- 응보의 요새
+    subzones.BASTION_OF_VALOR    = "\236\154\169\235\167\185\236\157\152 \235\179\180\235\163\168"  -- 용맹의 보루
+    subzones.HATE_SPIRE          = "\236\166\157\236\152\164\236\157\152 \236\178\168\237\131\145"  -- 증오의 첨탑
+    subzones.METTLES_HOLD        = "\234\184\176\234\176\156\236\157\152 \236\154\148\236\131\136"  -- 기개의 요새
+    subzones.BASTION_OF_MIGHT    = "\237\158\152\236\157\152 \235\179\180\235\163\168"  -- 힘의 보루
+    subzones.VOIDSCAR_ARENA      = "\234\179\181\237\151\136\237\157\137\237\132\176 \237\136\172\234\184\176\236\158\165"  -- 공허흉터 투기장
+    subzones.SHENZAR_REFINERY    = "\236\133\180\236\158\144\235\165\180 \236\160\149\236\160\156\236\134\140"  -- 셴자르 정제소
+    subzones.THE_HUSK            = "\234\187\141\236\167\136"  -- 껍질
+    subzones.HANAAR_OUTPOST      = "\237\149\152\235\130\152\235\165\180 \236\160\132\236\180\136\234\184\176\236\167\128"  -- 하나르 전초기지
+    subzones.SHADOWRIDGE_OUTPOST = "\236\150\180\235\145\160\235\138\165\236\132\160 \236\160\132\236\180\136\234\184\176\236\167\128"  -- 어둠능선 전초기지
+    subzones.SHADOW_RISE         = "\236\150\180\235\145\160\236\157\152 \236\152\164\235\165\180\235\167\137"  -- 어둠의 오르막
+    subzones.PATH_OF_PREDATION   = "\237\143\172\236\139\157\236\157\152 \234\184\184"  -- 포식의 길
+    subzones.THE_BLOODPLAINS     = "\237\149\143\235\185\155 \237\143\137\236\155\144"  -- 핏빛 평원
+    subzones.STAREATER_PAVILION  = "\235\179\132\237\143\172\236\139\157\236\158\144 \236\160\149\236\158\144"  -- 별포식자 정자
+    subzones.SHATTERSKY_PAVILION = "\237\149\152\235\138\152\237\140\140\237\142\184 \236\160\149\236\158\144"  -- 하늘파편 정자
+    subzones.CLAWS_EDGE          = "\235\176\156\237\134\177 \235\178\188\235\158\145"  -- 발톱 벼랑
+    subzones.THE_FANGFALL        = "\236\134\161\234\179\179\235\139\136 \236\160\136\235\178\189"  -- 송곳니 절벽
+    subzones.SPARRING_GROUNDS    = "\235\140\128\235\160\168\236\158\165"  -- 대련장
+
+elseif locale == "zhCN" then
+    names.VOIDSTORM           = "\232\153\154\229\189\177\233\163\142\230\154\180"  -- 虚影风暴
+    names.SLAYERS_RISE        = "\229\177\160\230\136\174\232\128\133\233\171\152\229\156\176"  -- 屠戮者高地
+
+    subzones.THE_INGRESS         = "\231\160\180\229\162\131\228\185\139\229\156\176"  -- 破境之地
+    subzones.LOCUS_POINT         = "\230\150\185\228\189\141\231\130\185"  -- 方位点
+    subzones.THE_HOWLING_RIDGE   = "\229\149\184\229\189\177\229\177\177\232\132\138"  -- 啸影山脊
+    subzones.DUSKS_REPOSE        = "\233\187\132\230\152\143\230\134\169\230\137\128"  -- 黄昏憩所
+    subzones.NEXUS_POINT_ANTIUS  = "\232\138\130\231\130\185\229\174\137\230\143\144\228\185\140\230\150\175"  -- 节点安提乌斯
+    subzones.NEXUS_POINT_XENAS   = "\232\138\130\231\130\185\229\184\140\231\186\179\230\150\175"  -- 节点希纳斯
+    subzones.NEXUS_POINT_MIDAR   = "\232\138\130\231\130\185\231\177\179\232\190\190\229\176\148"  -- 节点米达尔
+    subzones.SHADOWGUARD_POINT   = "\229\189\177\229\141\171\232\144\165"  -- 影卫营
+    subzones.ETHEREUM_REFINERY   = "\229\164\141\228\187\135\229\134\155\231\178\190\231\130\188\229\142\130"  -- 复仇军精炼厂
+    subzones.ETHEREUM_OVERCROFT  = "\229\164\141\228\187\135\229\134\155\228\184\138\229\177\130\229\140\186"  -- 复仇军上层区
+    subzones.STORMARION_KEEP     = "\230\150\175\230\137\152\231\142\155\229\133\176\232\166\129\229\161\158"  -- 斯托玛兰要塞
+    subzones.STORMARION_CITADEL  = "\230\150\175\230\137\152\231\142\155\229\133\176\229\160\161\229\158\146"  -- 斯托玛兰堡垒
+    subzones.STORMARION_WATCH    = "\230\150\175\230\137\152\231\142\155\229\133\176\229\178\151\229\147\168"  -- 斯托玛兰岗哨
+    subzones.OBSCURION_CITADEL   = "\232\131\167\229\189\177\229\160\161\229\158\146"  -- 胧影堡垒
+    subzones.THE_VOIDSPIRE       = "\232\153\154\229\189\177\229\176\150\229\161\148"  -- 虚影尖塔
+    subzones.THE_APPROACH        = "\228\184\180\229\189\177\229\143\163"  -- 临影口
+    subzones.THE_MOLT            = "\232\156\149\232\186\175\228\185\139\229\142\159"  -- 蜕躯之原
+    subzones.UNDERGROUND_BURROWS = "\229\156\176\229\186\149\230\180\158\231\170\159"  -- 地底洞窟
+    subzones.THE_BLADEBURROWS    = "\229\136\131\233\148\139\231\169\180\231\170\159"  -- 刃锋穴窟
+    subzones.ABUNDANT_VOIDBURROW = "\231\155\142\231\132\182\232\153\154\231\169\186\228\185\139\231\170\159"  -- 盎然虚空之窟
+    subzones.OVERRUN_HOLLOW      = "\230\187\165\233\173\148\231\170\159"  -- 滥魔窟
+    subzones.DEN_OF_PREDAXAS     = "\230\153\174\233\155\183\232\190\190\232\144\168\230\150\175\228\185\139\229\183\162"  -- 普雷达萨斯之巢
+    subzones.LAIR_OF_PREDAXAS    = "\230\153\174\233\155\183\232\190\190\232\144\168\230\150\175\228\185\139\231\169\180"  -- 普雷达萨斯之穴
+    subzones.NIGHT_TRENCH        = "\230\154\151\229\164\156\230\136\152\229\163\149"  -- 暗夜战壕
+    subzones.THE_GORGING_PIT     = "\232\180\170\229\169\170\230\183\177\229\157\145"  -- 贪婪深坑
+    subzones.QUIET_CAVERN        = "\229\174\129\233\157\153\230\180\158\231\169\180"  -- 宁静洞穴
+    subzones.CONSUMPTOR_CAVE     = "\229\144\158\229\153\172\232\153\171\230\180\158\231\169\180"  -- 吞噬虫洞穴
+    subzones.EXILES_HOVEL        = "\230\181\129\228\186\161\232\128\133\233\153\139\229\177\133"  -- 流亡者陋居
+    subzones.SLAYERS_RISE        = "\229\177\160\230\136\174\232\128\133\233\171\152\229\156\176"  -- 屠戮者高地
+    subzones.MASTERS_PERCH       = "\228\184\187\229\174\176\232\128\133\228\185\139\229\186\167"  -- 主宰者之座
+    subzones.GRIEF_SPIRE         = "\229\147\128\231\151\155\229\176\150\229\161\148"  -- 哀痛尖塔
+    subzones.RETRIBUTION_HOLD    = "\230\131\169\230\136\146\232\166\129\229\161\158"  -- 惩戒要塞
+    subzones.BASTION_OF_VALOR    = "\232\139\177\229\139\135\229\160\161\229\158\146"  -- 英勇堡垒
+    subzones.HATE_SPIRE          = "\230\134\142\230\129\168\229\176\150\229\161\148"  -- 憎恨尖塔
+    subzones.METTLES_HOLD        = "\230\150\151\229\139\135\232\166\129\229\161\158"  -- 斗勇要塞
+    subzones.BASTION_OF_MIGHT    = "\229\138\155\233\135\143\229\160\161\229\158\146"  -- 力量堡垒
+    subzones.VOIDSCAR_ARENA      = "\232\153\154\231\169\186\228\185\139\231\151\149\231\171\158\230\138\128\229\156\186"  -- 虚空之痕竞技场
+    subzones.SHENZAR_REFINERY    = "\231\148\179\230\137\142\229\176\148\231\178\190\231\130\188\229\142\130"  -- 申扎尔精炼厂
+    subzones.THE_HUSK            = "\230\174\139\233\170\168\231\169\186\232\186\175"  -- 残骨空躯
+    subzones.HANAAR_OUTPOST      = "\229\147\136\231\186\179\229\176\148\229\178\151\229\147\168"  -- 哈纳尔岗哨
+    subzones.SHADOWRIDGE_OUTPOST = "\229\189\177\232\132\138\229\178\151\229\147\168"  -- 影脊岗哨
+    subzones.SHADOW_RISE         = "\230\154\151\229\189\177\233\171\152\229\156\176"  -- 暗影高地
+    subzones.PATH_OF_PREDATION   = "\230\142\160\233\163\159\228\185\139\232\183\175"  -- 掠食之路
+    subzones.THE_BLOODPLAINS     = "\232\161\128\231\151\149\229\185\179\229\142\159"  -- 血痕平原
+    subzones.STAREATER_PAVILION  = "\229\153\172\230\152\159\228\186\173\229\143\176"  -- 噬星亭台
+    subzones.SHATTERSKY_PAVILION = "\231\162\142\231\169\185\228\186\173\229\143\176"  -- 碎穹亭台
+    subzones.CLAWS_EDGE          = "\229\136\169\231\136\170\228\185\139\231\188\152"  -- 利爪之缘
+    subzones.THE_FANGFALL        = "\231\137\153\233\153\168\229\143\176"  -- 牙陨台
+    subzones.SPARRING_GROUNDS    = "\232\167\146\229\138\155\230\150\151\229\156\186"  -- 角力斗场
+
+elseif locale == "zhTW" then
+    names.VOIDSTORM           = "\232\153\155\231\132\161\233\162\168\230\154\180"  -- 虛無風暴
+    names.SLAYERS_RISE        = "\230\174\186\230\136\174\232\128\133\233\171\152\229\180\151"  -- 殺戮者高崗
+
+    subzones.THE_INGRESS         = "\229\136\157\229\167\139\229\156\176"  -- 初始地
+    subzones.LOCUS_POINT         = "\230\154\151\229\159\159\233\187\158"  -- 暗域點
+    subzones.THE_HOWLING_RIDGE   = "\229\146\134\229\147\174\229\179\176"  -- 咆哮峰
+    subzones.DUSKS_REPOSE        = "\233\187\131\230\152\143\228\185\139\230\134\169"  -- 黃昏之憩
+    subzones.NEXUS_POINT_ANTIUS  = "\229\165\167\230\160\184\233\187\158\229\174\137\230\143\144\229\142\132\230\150\175"  -- 奧核點安提厄斯
+    subzones.NEXUS_POINT_XENAS   = "\229\165\167\230\160\184\233\187\158\231\145\159\231\180\141\230\150\175"  -- 奧核點瑟納斯
+    subzones.NEXUS_POINT_MIDAR   = "\229\165\167\230\160\184\233\187\158\231\177\179\233\129\148\231\136\190"  -- 奧核點米達爾
+    subzones.SHADOWGUARD_POINT   = "\229\189\177\232\161\155\229\180\151\229\147\168"  -- 影衛崗哨
+    subzones.ETHEREUM_REFINERY   = "\228\187\165\229\164\170\231\154\135\230\151\143\231\178\190\231\133\137\229\187\160"  -- 以太皇族精煉廠
+    subzones.ETHEREUM_OVERCROFT  = "\228\187\165\229\164\170\231\154\135\230\151\143\233\171\152\229\156\176"  -- 以太皇族高地
+    subzones.STORMARION_KEEP     = "\233\162\168\231\145\170\229\136\169\230\152\130\232\166\129\229\161\158"  -- 風瑪利昂要塞
+    subzones.STORMARION_CITADEL  = "\233\162\168\231\145\170\229\136\169\230\152\130\229\160\161\229\163\152"  -- 風瑪利昂堡壘
+    subzones.STORMARION_WATCH    = "\233\162\168\231\145\170\229\136\169\230\152\130\229\174\136\230\156\155"  -- 風瑪利昂守望
+    subzones.OBSCURION_CITADEL   = "\230\156\167\230\154\151\229\160\161\229\163\152"  -- 朧暗堡壘
+    subzones.THE_VOIDSPIRE       = "\232\153\155\231\132\161\228\185\139\229\176\150"  -- 虛無之尖
+    subzones.THE_APPROACH        = "\233\128\154\233\129\147\229\133\165\229\143\163"  -- 通道入口
+    subzones.THE_MOLT            = "\232\155\187\230\174\188"  -- 蛻殼
+    subzones.UNDERGROUND_BURROWS = "\229\156\176\229\186\149\230\183\177\231\169\180"  -- 地底深穴
+    subzones.THE_BLADEBURROWS    = "\229\138\141\229\136\131\229\156\176\231\169\180"  -- 劍刃地穴
+    subzones.ABUNDANT_VOIDBURROW = "\232\177\144\232\182\179\232\153\155\231\132\161\229\156\176\231\169\180"  -- 豐足虛無地穴
+    subzones.OVERRUN_HOLLOW      = "\230\154\180\232\181\176\232\176\183\229\156\176"  -- 暴走谷地
+    subzones.DEN_OF_PREDAXAS     = "\230\153\174\229\190\183\232\150\169\230\150\175\228\185\139\231\169\180"  -- 普德薩斯之穴
+    subzones.LAIR_OF_PREDAXAS    = "\230\153\174\229\190\183\232\150\169\230\150\175\229\183\162\231\169\180"  -- 普德薩斯巢穴
+    subzones.NIGHT_TRENCH        = "\233\187\145\229\164\156\230\181\183\230\186\157"  -- 黑夜海溝
+    subzones.THE_GORGING_PIT     = "\229\144\158\233\163\159\229\156\176\231\169\180"  -- 吞食地穴
+    subzones.QUIET_CAVERN        = "\229\175\130\233\157\156\230\180\158\231\169\180"  -- 寂靜洞穴
+    subzones.CONSUMPTOR_CAVE     = "\229\144\158\233\163\159\232\159\178\230\180\158\231\169\180"  -- 吞食蟲洞穴
+    subzones.EXILES_HOVEL        = "\230\181\129\230\148\190\232\128\133\229\176\143\229\177\139"  -- 流放者小屋
+    subzones.SLAYERS_RISE        = "\230\174\186\230\136\174\232\128\133\233\171\152\229\180\151"  -- 殺戮者高崗
+    subzones.MASTERS_PERCH       = "\228\184\187\229\174\176\230\163\178\230\137\128"  -- 主宰棲所
+    subzones.GRIEF_SPIRE         = "\230\130\178\230\133\159\229\176\150\229\161\148"  -- 悲慟尖塔
+    subzones.RETRIBUTION_HOLD    = "\230\135\178\230\136\146\232\166\129\229\161\158"  -- 懲戒要塞
+    subzones.BASTION_OF_VALOR    = "\232\139\177\233\157\136\229\160\161\229\163\152"  -- 英靈堡壘
+    subzones.HATE_SPIRE          = "\230\134\142\230\131\161\229\176\150\229\161\148"  -- 憎惡尖塔
+    subzones.METTLES_HOLD        = "\231\178\190\231\165\158\232\166\129\229\161\158"  -- 精神要塞
+    subzones.BASTION_OF_MIGHT    = "\229\188\183\229\138\155\229\160\161\229\163\152"  -- 強力堡壘
+    subzones.VOIDSCAR_ARENA      = "\232\153\155\231\132\161\228\185\139\231\151\149\231\171\182\230\138\128\229\160\180"  -- 虛無之痕競技場
+    subzones.SHENZAR_REFINERY    = "\229\174\163\230\137\142\231\178\190\231\133\137\229\187\160"  -- 宣扎精煉廠
+    subzones.THE_HUSK            = "\229\177\141\230\174\188"  -- 屍殼
+    subzones.HANAAR_OUTPOST      = "\229\147\136\231\180\141\231\136\190\229\147\168\231\171\153"  -- 哈納爾哨站
+    subzones.SHADOWRIDGE_OUTPOST = "\229\189\177\232\132\138\229\147\168\231\171\153"  -- 影脊哨站
+    subzones.SHADOW_RISE         = "\230\154\151\229\189\177\233\171\152\229\156\176"  -- 暗影高地
+    subzones.PATH_OF_PREDATION   = "\230\142\160\230\147\138\228\185\139\232\183\175"  -- 掠擊之路
+    subzones.THE_BLOODPLAINS     = "\233\174\174\232\161\128\229\185\179\229\142\159"  -- 鮮血平原
+    subzones.STAREATER_PAVILION  = "\229\153\172\230\152\159\232\128\133\228\186\173\233\150\163"  -- 噬星者亭閣
+    subzones.SHATTERSKY_PAVILION = "\231\162\142\229\164\169\228\186\173\233\150\163"  -- 碎天亭閣
+    subzones.CLAWS_EDGE          = "\229\136\169\231\136\170\228\185\139\231\183\163"  -- 利爪之緣
+    subzones.THE_FANGFALL        = "\231\137\153\232\144\189"  -- 牙落
+    subzones.SPARRING_GROUNDS    = "\231\183\180\230\173\166\229\160\180"  -- 練武場
+
+end
+
+-- ============================================================
+-- Expose to namespace
+-- ============================================================
+
+ns.L = setmetatable(names, {
+    __index = function(_, key) return key end,
+})
+
+ns.SubzoneNames = subzones
+
+ns.SubzoneKeys = {}
+for key, localizedName in pairs(subzones) do
+    ns.SubzoneKeys[localizedName] = key
+end
