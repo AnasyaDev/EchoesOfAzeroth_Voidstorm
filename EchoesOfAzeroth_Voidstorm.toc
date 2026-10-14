@@ -1,7 +1,7 @@
 ## Interface: 120105
 ## Title: Echoes of Azeroth: Voidstorm
 ## Notes: Netherstorm music content plugin for Echoes of Azeroth
-## Version: 1.0.0
+## Version: 1.0.1
 ## IconTexture: Interface\AddOns\EchoesOfAzeroth_Voidstorm\icon.png
 ## X-Curse-Project-ID: 1691026
 ## Dependencies: EchoesOfAzeroth
