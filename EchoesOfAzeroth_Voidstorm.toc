@@ -1,4 +1,4 @@
-## Interface: 120100
+## Interface: 120105
 ## Title: Echoes of Azeroth: Voidstorm
 ## Notes: Netherstorm music content plugin for Echoes of Azeroth
 ## Version: 1.0.0
